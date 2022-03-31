@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package lister;
+
+option go_package = "this/is/some/importpath";
+
+service ExtensionLister {
+	rpc Authenticate(AuthRequest) returns (AuthResponse) {}
+
+	rpc listExtensions(ListExtensionRequest) returns (stream Extension) {}
+}
+
+message AuthRequest {
+	string username = 1;
+	string password = 2;
+}
+
+message AuthResponse {
+	bool result = 1;
+	string reason = 2;
+}
+
+message ListExtensionRequest {
+	string keyContains = 1;
+}
+
+message ExtensionServerInfo {
+	string url = 1;
+	string company = 2;
+}
+
+message Extension {
+	string key = 1;
+	string company = 2;
+	string descriptionlabel = 3;
+	string descriptionsummary = 4;
+        repeated ExtensionServerInfo extensionserverinfo = 5;
+}
